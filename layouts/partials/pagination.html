@@ -1,0 +1,29 @@
+<!-- layouts/partials/pagination.html -->
+{{ $pager := $.Paginator }}
+{{ if gt $pager.TotalPages 1 }}
+<div class="flex justify-center items-center mt-8">
+  {{ if $pager.HasPrev }}
+    <a href="{{ $pager.First.URL }}" class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+      {{ 1 }}
+    </a>
+  {{ end }}
+  
+  {{ range $pager.Pagers }}
+    {{ if and (and (ne .PageNumber 1) (ne .PageNumber $pager.TotalPages)) (or (and (le .PageNumber (add $pager.PageNumber 2)) (ge .PageNumber (sub $pager.PageNumber 2))) (eq .PageNumber $pager.PageNumber)) }}
+      <a href="{{ .URL }}" class="mx-1 px-3 py-2 {{ if eq . $pager }}bg-blue-500 text-white{{ else }}bg-gray-200 text-gray-700 hover:bg-gray-300{{ end }} rounded-md">
+        {{ .PageNumber }}
+      </a>
+    {{ else if or (eq .PageNumber 1) (eq .PageNumber $pager.TotalPages) }}
+      <!-- Skip rendering these as they're handled separately -->
+    {{ else if or (eq .PageNumber (sub $pager.PageNumber 3)) (eq .PageNumber (add $pager.PageNumber 3)) }}
+      <span class="mx-1">...</span>
+    {{ end }}
+  {{ end }}
+  
+  {{ if $pager.HasNext }}
+    <a href="{{ $pager.Last.URL }}" class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+      {{ $pager.TotalPages }}
+    </a>
+  {{ end }}
+</div>
+{{ end }}

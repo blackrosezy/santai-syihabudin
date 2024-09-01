@@ -1,0 +1,9 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Santai Bersama Syihabudin'
+
+[taxonomies]
+  category = "categories"
+
+[pagination]
+  pagerSize = 8

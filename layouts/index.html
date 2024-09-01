@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santai Bersama Syihabudin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.5"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans p-5">
+<div class="max-w-3xl mx-auto">
+  <header class="flex flex-col sm:flex-row justify-between items-center mb-8">
+    <a href='{{ "" | relURL }}' class="flex items-center mb-4 sm:mb-0">
+      <img src='{{ "images/logo.png" | relURL }}' alt="Logo" class="w-12 h-12 mr-4">
+      <h1 class="text-xl font-bold">Santai Bersama Syihabudin</h1>
+    </a>
+    <a href="https://chat.whatsapp.com/F341qpBtpcs9a4My7JIcU5" class="bg-green-500 text-white px-4 py-2 rounded-full flex items-center">
+      <i data-feather="message-circle" class="mr-2"></i>
+      WhatsApp
+    </a>
+  </header>
+
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-bold">Kategori</h2>
+  </div>
+  <div class="flex justify-between mb-8">
+    {{ range $category := slice "Aqidah" "Ibadah" "Akhlak" "Fiqh" "Sirah" }}
+      {{ $lowerCategory := $category | lower }}
+      <a href='{{ printf "categories/%s" $lowerCategory | relURL }}' class="flex flex-col items-center group">
+        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center transition-shadow duration-300 group-hover:shadow-lg">
+          <i data-feather='{{ cond (eq $lowerCategory "aqidah") "heart" (cond (eq $lowerCategory "ibadah") "pen-tool" (cond (eq $lowerCategory "akhlak") "users" (cond (eq $lowerCategory "fiqh") "shield" "book-open"))) }}' class="text-gray-400"></i>
+        </div>
+        <span class="mt-2 text-xs font-medium">{{ $category }}</span>
+      </a>
+    {{ end }}
+  </div>
+
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-xl font-bold">Pertanyaan Terbaru</h2>
+    <a href='{{ "posts" | relURL }}' class="text-blue-500 text-sm font-medium">lihat semua</a>
+  </div>
+  <div class="space-y-4">
+    {{ range first 4 (where .Site.RegularPages "Section" "posts") }}
+    <a href="{{ .RelPermalink }}" class="block">
+      <div class="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
+        <div class="flex items-center mb-2">
+          <div class="w-10 h-10 rounded-full mr-3 overflow-hidden flex items-center justify-center" style="background-color: {{ .Params.avatarColor }};">
+            <img src='{{ (printf "images/%s" .Params.avatar) | relURL }}' alt="{{ .Params.author }}" class="w-7 h-7 object-cover">
+          </div>
+          <div>
+            <h3 class="font-semibold">{{ .Params.author }}</h3>
+            <p class="text-sm text-gray-500">
+              {{ range .Params.categories  }}
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-1 mb-2">{{ . }}</span>
+              {{ end }}
+            </p>
+          </div>
+        </div>
+        <p class="text-sm">{{ .Title }}</p>
+        <p class="text-sm text-gray-500 mt-2">{{ .Date.Format "02 Jan 2006" }}</p>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+<footer class="mt-8 py-2 text-center text-gray-400 text-xs">
+  <p>Created with <i data-feather="heart" class="inline-block w-3 h-3"></i> by Mohd Rozi</p>
+</footer>
+
+<script>
+  feather.replace()
+</script>
+</body>
+</html>
