@@ -2,6 +2,8 @@
 
 Laman web arkib yang menyimpan soalan dan jawapan daripada kumpulan WhatsApp 'Santai Bersama Syihabudin'. Platform ini menyediakan akses mudah kepada perbincangan bermanfaat dan ilmu yang dikongsi dalam kumpulan.
 
+https://blackrosezy.github.io/santai-syihabudin/
+
 ## Cara 'run' di Localhost
 
 Untuk testing di local machine, ikuti langkah-langkah berikut:
